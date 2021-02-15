@@ -3,11 +3,14 @@ package ed;
 import java.util.Arrays;
 
 
+
+
 public class Vetor {
     private Aluno[] alunos = new Aluno[100];
     private int totalDeAlunos = 0;
     //adiciona alunos
     public void adiciona (Aluno aluno){
+        this.garanteEspaco();
         this.alunos[totalDeAlunos] = aluno;
         totalDeAlunos++;
     }
@@ -17,8 +20,21 @@ public class Vetor {
         return posicao >= 0 && posicao < totalDeAlunos;
     }
 
+
+    // Aumenta o espaço do Array 
+
+    private void garanteEspaco(){
+        if(totalDeAlunos == alunos.length){
+            Aluno[] novoArray =  new Aluno[alunos.length*2];
+            for (int i = 0 ; i< alunos.length; i++){
+                novoArray[i] = alunos[i];
+            }
+            this.alunos = novoArray;
+        }
+    }
       //adiciona alunos em uma posição específica
     public void adiciona (int posicao, Aluno aluno){
+        this.garanteEspaco();
         if(!posicaoValida(posicao)){
             throw new IllegalArgumentException("Posição inválida");
         }
